@@ -1,21 +1,17 @@
 //import { CoursesService } from './courses.service';
 import { Component } from '@angular/core';
-import { $$ } from 'protractor';
 
 @Component({
     selector: 'courses',
     template: `
-                <div (click)="onDivClicked">
-                    <button (click)="onSave($event)">Save</button>
-                </div>
+                <input [(ngModel)]='email' (keyup.enter)="onKeyUp()"/>
               `
 })//decorator function
 export class CoursesComponent{
-    onDivClicked(){
-        console.log("div was clicked");
-    }
-    onSave($event){
-        $event.stopPropogation();
-        console.log("button was clicked", $event);
+
+    email = "me@example.com";
+    
+    onKeyUp(){
+        console.log(this.email);
     }
 }

@@ -1,21 +1,21 @@
 //import { CoursesService } from './courses.service';
 import { Component } from '@angular/core';
+import { $$ } from 'protractor';
 
 @Component({
     selector: 'courses',
     template: `
-                <img [src]="imageUrl" />
-                <table>
-                    <tr>
-                        <td [attr.colspan]="colSpan"></td>//targeting the colSpan attribute of the html element
-                    </tr>
-                </table>
+                <div (click)="onDivClicked">
+                    <button (click)="onSave($event)">Save</button>
+                </div>
               `
 })//decorator function
 export class CoursesComponent{
-
-    imageUrl = "http://lorempixel.com/400/200";
-    colSpan = 2;
-    
-    
+    onDivClicked(){
+        console.log("div was clicked");
+    }
+    onSave($event){
+        $event.stopPropogation();
+        console.log("button was clicked", $event);
+    }
 }

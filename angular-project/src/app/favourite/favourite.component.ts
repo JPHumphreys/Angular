@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'favourite',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavouriteComponent implements OnInit {
 
-  isFavourite: boolean;
+  @Input('isFavourite') isSelected: boolean;
+  @Output() change = new EventEmitter();
 
   constructor() { }
 
@@ -15,7 +16,9 @@ export class FavouriteComponent implements OnInit {
   }
 
   onClick(){
-    this.isFavourite = !this.isFavourite;//*toggle
+    this.isSelected = !this.isSelected; //toggle
+    this.change.emit(this.isSelected); //notfiy that something has happened
+    //prints whether it is true or false
   }
 
 }

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-//import 'rxjs/add/observable/throw';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,7 @@ export class DataService {
   
 
   create(resource){
+    //return throwError(new AppError());
     return this.http.post(this.url, JSON.stringify(resource))
     .pipe(
         map(Response => Response),
@@ -41,6 +42,7 @@ export class DataService {
   }
 
   delete(id){
+
     return this.http.delete(this.url + '/' + id)
     .pipe(
         map(Response => Response),

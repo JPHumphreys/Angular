@@ -24,6 +24,8 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PostsComponent } from './posts/posts.component';
+import { GithubFollowersComponent } from './github-followers/github-followers.component';
+import { GithubFollowersService } from './github-followers.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { PostsComponent } from './posts/posts.component';
     ContactFormComponent,
     NewCourseFormComponent,
     ChangePasswordComponent,
-    PostsComponent
+    PostsComponent,
+    GithubFollowersComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { PostsComponent } from './posts/posts.component';
     CoursesService,
     AuthorsService,
     PostService,
+    GithubFollowersService,
     {provide: ErrorHandler, useClass: AppErrorHandler}//wherever you are using error handler - use this instead
   ],
   bootstrap: [AppComponent]

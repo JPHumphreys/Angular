@@ -1,3 +1,7 @@
+import { throwError } from 'rxjs';
+import { BadInput } from './../common/bad-input';
+import { NotFoundError } from './../common/not-found-error';
+import { AppError } from './../common/app-error';
 import { PostService } from './../services/post.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -18,18 +22,13 @@ export class PostsComponent implements OnInit {
     .subscribe(
       Response =>{
       this.posts = Response;
-    },
-    error => {
-      alert('An unexpected error occured.');//use toasts instead
-      console.log(error);
     }); 
   }
 
   createPost(input: HTMLInputElement){
-    let post = {
-      title: input.value
-    };
+    let post = { title: input.value };
     input.value = '';
+
     this.service.createPost(post)
     .subscribe(
       Response => {
@@ -37,9 +36,13 @@ export class PostsComponent implements OnInit {
       this.posts.splice(0,0,post);
       console.log(this.posts);
     },
-    error => {
-      alert('An unexpected error has occured.');
-      console.log(error);
+    (error: AppError) => {
+      if(error instanceof BadInput){
+        //this.form.setErrors(error.originalError);
+      }
+      else{
+        throw error;
+      }
     });
   }
 
@@ -48,23 +51,23 @@ export class PostsComponent implements OnInit {
     .subscribe(
       Response => {
       console.log(Response);
-    },
-    error => {
-      alert('An unexpected error has occured.');
-      console.log(error);
     });
   }
 
   deletePost(post){
-    this.service.deletePost(post.id)
+    this.service.deletePost(345)
     .subscribe(
       Response => {
       let index = this.posts.indexOf(post);
       this.posts.splice(index, 1);
     },
-    error => {
-      alert('An unexpected error has occured.');
-      console.log(error);
+    (error: AppError) => {//in arrow functions you need to annotate types in paranthesis
+      if(error instanceof NotFoundError){
+        alert('This post has already been deleted');
+      }
+      else{
+        throw error;
+      }
     });
   }
 

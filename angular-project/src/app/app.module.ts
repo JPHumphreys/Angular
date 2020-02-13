@@ -1,3 +1,4 @@
+import { RouterModule, Routes } from '@angular/router';
 import { GithubProfileComponent } from './github-profile/github-profile.component';
 import { HomeComponent } from './home/home.component';
 import { AppErrorHandler } from './common/app-error-handler';
@@ -31,6 +32,19 @@ import { GithubFollowersService } from './github-followers.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+const routes: Routes = [
+  { path: '', 
+    component: HomeComponent },
+  { path: 'followers', 
+    component: GithubFollowersComponent},
+  { path: 'profile/:username', 
+    component: GithubProfileComponent},
+  { path: 'posts', 
+    component: PostsComponent},
+  { path: '**', //postition matters - if wildcards go first - they will catch first
+  component: NotFoundComponent}
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +74,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes) //set root route for the application/ pass in a route with 2 properties (path,component)
   ],
   providers: [
     CoursesService,
